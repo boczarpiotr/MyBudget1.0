@@ -67,8 +67,22 @@ public class DAO {
         return 0;
     }
 
-    public static void main(String[] args) {
-        double sum = getSumOfOutcomeByMonth("Feb");
-        System.out.println(sum);
+    public static double getSumOfOutcomeByKind(String kindOfOutcome){
+        try {
+            Connection conn = DbConnector.createConnection();
+            PreparedStatement ps = conn.prepareStatement(GET_SUM_OF_OUTCOME_BY_KIND);
+            ps.setString(1, kindOfOutcome);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                double sumOfOutcome = rs.getDouble("sum(outcome)");
+
+                return sumOfOutcome;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

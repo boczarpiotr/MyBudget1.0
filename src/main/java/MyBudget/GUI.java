@@ -29,8 +29,8 @@ public class GUI {
 
         JTextField outcome = new JTextField();
 
-        JButton reportButton = new JButton("Get report by month");
-        reportButton.setBounds(20, 20, 150, 35);
+        JButton reportButton = new JButton("Get sum of outcome");
+        reportButton.setBounds(20, 15, 150, 35);
 
         JButton button1 = new JButton("Add the outcome");
         button1.setBounds(140, 220, 150, 35);
@@ -68,21 +68,37 @@ public class GUI {
             reportFrame.setVisible(true);
             reportFrame.setLayout(null);
 
-            JComboBox reportComboBox = new JComboBox(monthArray);
-            reportComboBox.setBounds(70, 70, 100, 30);
+            JComboBox sumForMonthCombo = new JComboBox(monthArray);
+            sumForMonthCombo.setBounds(40, 70, 140, 30);
 
-            JButton generateReportButton = new JButton("Generate report for selected month");
-            generateReportButton.setBounds(70, 150, 240, 60);
+            JComboBox sumForKindCombo = new JComboBox(outcomeArray);
+            sumForKindCombo.setBounds(220, 70, 140, 30);
 
-            generateReportButton.addActionListener(actionEvent1 -> {
-                String selectedMonth = reportComboBox.getSelectedItem().toString();
-                Double sum = DAO.getSumOfOutcomeByMonth(selectedMonth);
+
+
+            JButton generateReportButtonByMonth = new JButton("Get sum for month");
+            generateReportButtonByMonth.setBounds(40, 150, 140, 40);
+
+            JButton generateReportButtonByKind = new JButton("Get sum for kind");
+            generateReportButtonByKind.setBounds(220, 150, 140, 40);
+
+            generateReportButtonByMonth.addActionListener(actionEvent1 -> {
+                String selectedMonth = sumForMonthCombo.getSelectedItem().toString();
+                double sum = DAO.getSumOfOutcomeByMonth(selectedMonth);
                 JOptionPane.showMessageDialog(null, "Sum of outcomes in month " + selectedMonth + " is: " + sum);
             });
 
+            generateReportButtonByKind.addActionListener(actionEvent2-> {
+                String selectedKind = sumForKindCombo.getSelectedItem().toString();
+                double sum = DAO.getSumOfOutcomeByKind(selectedKind);
+                JOptionPane.showMessageDialog(null, "Sum of outcomes for kind: " + selectedKind + " is " + sum);
+            });
 
-            reportFrame.add(generateReportButton);
-            reportFrame.add(reportComboBox);
+
+            reportFrame.add(generateReportButtonByMonth);
+            reportFrame.add(generateReportButtonByKind);
+            reportFrame.add(sumForMonthCombo);
+            reportFrame.add(sumForKindCombo);
 
         });
 
