@@ -10,6 +10,7 @@ public class DAO {
     public static final String GET_ALL = "select * from item;";
     public static final String INSERT_INTO_ITEM = "insert into item (date, kind_of_outcome, month, outcome) values (? , ? , ? , ?);";
     public static final String GET_SUM_OF_OUTCOME_BY_MONTH = "select sum(outcome) from item where month = ?;";
+    public static final String GET_SUM_OF_OUTCOME_BY_KIND = "select sum(outcome) from item where kind_of_outcome = ?;";
 
     public static void getAllRows() {
         try {
@@ -46,34 +47,7 @@ public class DAO {
         }
     }
 
-    public static Item showOneLine(int itemId) {
-        try (Connection conn = DbConnector.createConnection()) {
-            PreparedStatement ps = conn.prepareStatement("select * from item where item_id = ?;");
-            ps.setInt(1, itemId);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-
-                Item item = new Item();
-
-                String date = rs.getString("date");
-                String kindOfOutcome = rs.getString("kind_of_outcome");
-                String month = rs.getString("month");
-                double outcome = rs.getDouble("outcome");
-                item.setDate(date);
-                item.setKindOfOutcome(kindOfOutcome);
-                item.setMonth(month);
-                item.setOutcome(outcome);
-
-                return item;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    public static double getSumOfOutcome(String month){
+    public static double getSumOfOutcomeByMonth(String month){
         try {
             Connection conn = DbConnector.createConnection();
             PreparedStatement ps = conn.prepareStatement(GET_SUM_OF_OUTCOME_BY_MONTH);
@@ -94,7 +68,7 @@ public class DAO {
     }
 
     public static void main(String[] args) {
-        double sum = getSumOfOutcome("Feb");
+        double sum = getSumOfOutcomeByMonth("Feb");
         System.out.println(sum);
     }
 }

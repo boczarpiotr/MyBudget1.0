@@ -76,7 +76,7 @@ public class GUI {
 
             generateReportButton.addActionListener(actionEvent1 -> {
                 String selectedMonth = reportComboBox.getSelectedItem().toString();
-                Double sum = DAO.getSumOfOutcome(selectedMonth);
+                Double sum = DAO.getSumOfOutcomeByMonth(selectedMonth);
                 JOptionPane.showMessageDialog(null, "Sum of outcomes in month " + selectedMonth + " is: " + sum);
             });
 
