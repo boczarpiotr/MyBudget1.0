@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class GUI {
 
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI() {
 
 
         JFrame frame = new JFrame("MyBudget 1.0");
@@ -31,7 +31,6 @@ public class GUI {
 
         JButton reportButton = new JButton("Get sum of outcome");
         reportButton.setBounds(20, 15, 150, 35);
-
         JButton button1 = new JButton("Add the outcome");
         button1.setBounds(140, 220, 150, 35);
         todaysDate.setBounds(305, 15, 72, 25);
@@ -74,8 +73,6 @@ public class GUI {
             JComboBox sumForKindCombo = new JComboBox(outcomeArray);
             sumForKindCombo.setBounds(220, 70, 140, 30);
 
-
-
             JButton generateReportButtonByMonth = new JButton("Get sum for month");
             generateReportButtonByMonth.setBounds(40, 150, 140, 40);
 
@@ -91,7 +88,7 @@ public class GUI {
             generateReportButtonByKind.addActionListener(actionEvent2-> {
                 String selectedKind = sumForKindCombo.getSelectedItem().toString();
                 double sum = DAO.getSumOfOutcomeByKind(selectedKind);
-                JOptionPane.showMessageDialog(null, "Sum of outcomes for kind: " + selectedKind + " is " + sum);
+                JOptionPane.showMessageDialog(null, "Sum of outcomes for: " + selectedKind + " is " + sum);
             });
 
 
@@ -101,7 +98,6 @@ public class GUI {
             reportFrame.add(sumForKindCombo);
 
         });
-
 
         frame.add(button1);
         frame.add(reportButton);
@@ -114,9 +110,5 @@ public class GUI {
         frame.add(outcome);
         frame.setLayout(null);
         frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 }

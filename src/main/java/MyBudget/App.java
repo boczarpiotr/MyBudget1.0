@@ -1,13 +1,10 @@
 package MyBudget;
 
-/**
- * Hello world!
- *
- */
-public class App 
+import static MyBudget.GUI.createAndShowGUI;
+
+public class App
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main( String[] args ) {
+        javax.swing.SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 }
